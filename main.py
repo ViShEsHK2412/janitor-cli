@@ -7,7 +7,7 @@ from collections import defaultdict
 
 app = typer.Typer()
 
-def scan(folder: str):
+def scan(folder: str,dry_run: bool = True):
     p = pathlib.Path(folder)
     hash_store = defaultdict(list)
     for f in p.rglob(f"*"):
@@ -30,8 +30,16 @@ def scan(folder: str):
         if len(value) > 1:
             print(f"\n[!] Duplicate Group Found")
             print(f"Duplicates found for the key: {key}")
-            for path in value:
-                print(f"The values are  -> : {path}")
+            for path in value[1:]:
+                if dry_run:
+                    print(f"These Values will be Deleted -> : {path}")
+                else:
+                    path.unlink()
+                    print(f"Deleted{path}")  
+                    
+
+                    
+
 
 
 
@@ -41,11 +49,10 @@ def scan(folder: str):
 
 @app.command()
 def main(
-    folder : Annotated[str,typer.Argument]
+    folder : Annotated[str,typer.Argument],
+    dry_run : Annotated[bool,typer.Option()] = True
 ):
-    if folder:
-        scan(folder)
-    
+   return scan(folder,dry_run)
 
 if __name__ == "__main__":
     app()

@@ -8,3 +8,5 @@ dependencies = [
     "pathlib>=1.0.1",
     "typer>=0.24.1",
 ]
+[project.scripts]
+janitor = "main:app"

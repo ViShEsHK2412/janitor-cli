@@ -20,11 +20,12 @@ A fast, lightweight command-line tool that scans directories recursively and det
 - Hashes every file's contents using `blake2b` via `hashlib`
 - Handles permission errors gracefully
 - Duplicate detection by grouping files with identical hashes
+- `--dry-run` mode — preview what would be deleted without touching anything
 
 ## Features (Upcoming)
 
 
-- `--dry-run` mode — preview what would be deleted without touching anything
+
 - `--extension` flag — filter scan by file type (e.g. `.jpg`, `.pdf`)
 - Actual deletion of duplicates via `shutil`
 - Full file logging
