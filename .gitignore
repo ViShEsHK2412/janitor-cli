@@ -5,6 +5,7 @@ build/
 dist/
 wheels/
 *.egg-info
+janitor.log
 
 # Virtual environments
 .venv
