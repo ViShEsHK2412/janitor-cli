@@ -3,12 +3,18 @@ import typer
 import pathlib
 import hashlib
 from collections import defaultdict
+import shutil
 
 
 app = typer.Typer()
 
+GIB = 2**30
+GB = 10**9
+
 def scan(folder: str,dry_run: bool = True):
     p = pathlib.Path(folder)
+    usage_before = shutil.disk_usage(p)
+    print(f"Total Disk Usage is:{usage_before.used}")
     hash_store = defaultdict(list)
     for f in p.rglob(f"*"):
         if f.is_file():
@@ -35,9 +41,10 @@ def scan(folder: str,dry_run: bool = True):
                     print(f"These Values will be Deleted -> : {path}")
                 else:
                     path.unlink()
-                    print(f"Deleted{path}")  
-                    
-
+                    print(f"Deleted{path}")
+                    usage_after = shutil.disk_usage(p)
+                    print(f"Total Disk Usage now is : {usage_after.used}")
+                 
                     
 
 
